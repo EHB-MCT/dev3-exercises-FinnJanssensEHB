@@ -1,6 +1,6 @@
 import kotlin.random.Random
 
-var playerEnergy = 10
+var playerEnergy = 6
 
 fun main() {
 
@@ -21,15 +21,27 @@ fun challengeOne() {
     val correctedIndex = randomIndex + 1
     val selectedCountry = topCountriesWithMostIslands[randomIndex]
     println("At what place does $selectedCountry rank?")
-    val userGuess = readLine()
-    if (userGuess != null) {
-        if (userGuess.toInt() == correctedIndex) {
+    val answer = readLine()
+    if (answer != null) {
+        if (answer.toInt() == correctedIndex) {
             println("Correct! $selectedCountry ranks at $correctedIndex")
             winEnergy()
         } else {
             println("False! $selectedCountry ranks at $correctedIndex")
             loseEnergy()
         }
+    }
+    challengeTwo()
+}
+
+fun challengeTwo() {
+    println("Name one of the top 3 biggest islands in the world.")
+    val biggestIslands = setOf<String>("Greenland", "New Guinea", "Borneo")
+    val answer = readLine()
+    if (biggestIslands.contains(answer)) {
+        winEnergy()
+    } else {
+        loseEnergy()
     }
 }
 
