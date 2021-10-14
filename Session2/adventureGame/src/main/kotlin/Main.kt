@@ -1,4 +1,5 @@
 import kotlin.random.Random
+import kotlin.system.exitProcess
 
 var playerEnergy = 6
 
@@ -43,6 +44,37 @@ fun challengeTwo() {
     } else {
         loseEnergy()
     }
+    challengeThree()
+}
+
+fun challengeThree() {
+    println("A wild tiger is standing right in front of you, what do you do?")
+    println("Type the number of the action you want to perform.")
+    val actions = setOf<String>("1: flee", "2: take sharp stick", "3: take rock")
+    actions.forEach(::println)
+    val answer = readLine()
+    if (answer != null) {
+        when (answer.toInt()) {
+            1 -> {
+                println("You ran away and lost some energy, go back to challenge 1!")
+                loseEnergy()
+                challengeOne()
+            }
+            2 -> {
+                println("You use the sharp stick to poke the tiger and make it go away!")
+                println("While doing this, you lost some energy.")
+                loseEnergy()
+            }
+            3 -> {
+                println("The rock is slippery and you drop it on your toe. The tiger eats you.")
+                println("GAME OVER")
+                println("Ended with $playerEnergy energy.")
+            }
+            else -> {
+                println("Invalid input, game over.")
+            }
+        }
+    }
 }
 
 fun winEnergy() {
@@ -52,6 +84,10 @@ fun winEnergy() {
 
 fun loseEnergy() {
     playerEnergy -= 2
+    if (playerEnergy <= 0) {
+        println("No energy left! GAME OVER!")
+        exitProcess(0)
+    }
     println("Lost some energy! Current energy is: $playerEnergy")
 
 }
