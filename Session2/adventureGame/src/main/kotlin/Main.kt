@@ -69,12 +69,24 @@ fun challengeThree() {
                 println("The rock is slippery and you drop it on your toe. The tiger eats you.")
                 println("GAME OVER")
                 println("Ended with $playerEnergy energy.")
+                exitProcess(0)
             }
             else -> {
                 println("Invalid input, game over.")
             }
         }
     }
+    challengeFour()
+}
+
+fun challengeFour() {
+    println("To finish the game, you have to guess the amount of trees on the island.")
+    println("It's a value between 0 and 100.")
+    val randomNumber = (0..10).random()
+    do {
+        val answer = readLine()?.toInt()
+    } while (answer != randomNumber)
+    println("Correct! You won the game!")
 }
 
 fun winEnergy() {
