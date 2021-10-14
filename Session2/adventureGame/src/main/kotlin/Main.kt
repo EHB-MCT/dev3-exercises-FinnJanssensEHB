@@ -80,13 +80,37 @@ fun challengeThree() {
 }
 
 fun challengeFour() {
-    println("To finish the game, you have to guess the amount of trees on the island.")
+    println("Now you have to guess the amount of trees on the island.")
     println("It's a value between 0 and 100.")
     val randomNumber = (0..10).random()
     do {
         val answer = readLine()?.toInt()
     } while (answer != randomNumber)
-    println("Correct! You won the game!")
+    println("Correct!")
+    endBoss()
+}
+
+fun endBoss() {
+    var tries = 3
+    println("You have reached the end boss. Pick an anagram that you would like to solve by typing 1, 2 or 3! You have 3 tries.")
+    val anagrams = setOf<String>("abuse eh och", "amino nuts", "corene co tut")
+    val solutions = setOf<String>("beachhouse", "mountains", "coconuttree")
+    do {
+        anagrams.forEach(::println)
+        val chosenAnagram = readLine()?.toInt()
+        val chosenAnagramCorrected = chosenAnagram?.minus(1)
+        if (chosenAnagramCorrected != null) {
+            println("You chose ${anagrams.elementAt(chosenAnagramCorrected.toInt())}")
+        }
+        println("Please give your answer:")
+        val answer = readLine()
+        tries -= 1
+        if (tries == 0) {
+            println("Game Over!")
+            exitProcess(0)
+        }
+    } while (tries != 0 && chosenAnagramCorrected != null && answer != solutions.elementAt(chosenAnagramCorrected.toInt()))
+    println("Success!!")
 }
 
 fun winEnergy() {
