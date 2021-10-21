@@ -1,4 +1,4 @@
-class Comedian(override val name: String): Person(name) {
+class Comedian(override val name: String): Person(name), Chatpartner {
     override fun talk() {
         tellJoke()
     }
