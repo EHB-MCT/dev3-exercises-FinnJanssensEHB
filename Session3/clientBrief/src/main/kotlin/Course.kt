@@ -1,7 +1,7 @@
 class Course(
     val name: String,
     val description: String,
-    val year: int,
+    val year: Int,
     val field: String,
     val cluster: String,
     val semester: Int,
