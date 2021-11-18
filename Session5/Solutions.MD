@@ -71,3 +71,48 @@ ORDER BY averageAmount DESC
 *Collectable Mini Designs Co.*
 
 *Thompson Valarie*
+
+# Third Batch
+
+How much did William Brown pay in 2004?
+
+```SQL
+SELECT customers.*,
+SUM(payments.amount) AS paymentAmount,
+payments.paymentDate AS paymentDate
+FROM customers
+LEFT JOIN payments 
+ON payments.customerNumber = customers.customerNumber
+WHERE contactLastName LIKE 'Brown'
+AND contactFirstName LIKE 'William'
+AND paymentDate LIKE '2004%'
+```
+
+*38281.51*
+
+Get a list of customer names and the name of their representative. Only include customers with a representative.
+
+```SQL
+SELECT customerName,
+employees.lastName,
+employees.firstName
+FROM customers
+LEFT JOIN employees
+ON customers.salesRepEmployeeNumber = employees.employeeNumber
+WHERE salesRepEmployeeNumber IS NOT NULL
+```
+
+What office is customer The Sharp Gifts Warehouse tied to?
+
+```SQL
+SELECT customerName,
+offices.city,
+offices.addressLine1,
+offices.addressLine2
+FROM customers
+LEFT JOIN employees
+ON customers.salesRepEmployeeNumber = employees.employeeNumber
+LEFT JOIN offices
+ON offices.officeCode = employees.officeCode
+WHERE customerName LIKE 'The Sharp Gifts Warehouse';
+```
