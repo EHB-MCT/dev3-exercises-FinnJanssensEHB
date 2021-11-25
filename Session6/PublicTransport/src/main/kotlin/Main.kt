@@ -17,7 +17,7 @@ fun main() {
                 ":" + "3306" + "/" +
                 credentials.databaseName,
         connectionProps)
-    println("Where do you want to go?")
+    /*println("Where do you want to go?")
     val search = readLine()
     val statement = connection.prepareStatement(
         "SELECT * \n" +
@@ -36,5 +36,26 @@ fun main() {
         val departureTime = result.getString("departureTime")
         val arrivalTime = result.getString("arrivalTime")
         println("$id $type: $departureCity@$departureTime -> $arrivalCity@$arrivalTime")
+    }*/
+    println("What platform do you want to check?")
+    val search = readLine()
+    val statement = connection.prepareStatement(
+        "SELECT * \n" +
+                "FROM pt_rides\n" +
+                "LEFT JOIN pt_trains\n" +
+                "ON pt_rides.train_id = pt_trains.id\n" +
+                "WHERE departurePlatform = ? LIMIT 3")
+    // Replace the var without allowing full queries to be entered
+    statement.setString(1, search)
+    val result = statement.executeQuery()
+    while(result.next()) {
+        val type = result.getString("type")
+        val id = result.getString("id")
+        val departureCity = result.getString("departureCity")
+        val arrivalCity = result.getString("arrivalCity")
+        val departureTime = result.getString("departureTime")
+        val arrivalTime = result.getString("arrivalTime")
+        println("$id $type: $departureCity@$departureTime -> $arrivalCity@$arrivalTime")
     }
+
 }
