@@ -1,4 +1,4 @@
-class Duolingo() {
+class Duolingo(val roundSize: Int, val language: String = "Engels") {
     var words = mutableSetOf<Word>(
         Word("une cantine", "een kantine", "Frans"),
         Word("de l'or", "goud", "Frans"),
@@ -21,9 +21,16 @@ class Duolingo() {
         Word("mud", "modder", "Engels"),
         Word("sand", "zand", "Engels")
     )
+
+    var wordSet = mutableSetOf<Word>()
+
+    init {
+        wordSet = words.filter { it.language == language }.toMutableSet()
+    }
+
     fun play() {
-        val selectedWords = selectRandomWords(words)
-        var i = 5
+        val selectedWords = selectRandomWords(wordSet)
+        var i = selectedWords.size
         for (word in selectedWords) {
             println("Vertaal ${word.original} van het ${word.language} naar het Nederlands!")
             println("Nog ${i} woorden te gaan!")
@@ -36,7 +43,7 @@ class Duolingo() {
             i--
         }
     }
-    fun selectRandomWords(allWords: MutableSet<Word>): MutableSet<Word> {
-        return allWords.shuffled().take(5).toMutableSet()
+    fun selectRandomWords(wordSet: MutableSet<Word>): MutableSet<Word> {
+        return wordSet.shuffled().take(roundSize).toMutableSet()
     }
 }
