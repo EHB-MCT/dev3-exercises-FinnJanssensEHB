@@ -1,5 +1,5 @@
 class Duolingo() {
-    var words = listOf<Word>(
+    var words = mutableSetOf<Word>(
         Word("une cantine", "een kantine", "Frans"),
         Word("de l'or", "goud", "Frans"),
         Word("de l'acier", "staal", "Frans"),
@@ -22,6 +22,30 @@ class Duolingo() {
         Word("sand", "zand", "Engels")
     )
     fun play() {
-
+        val selectedWords = selectRandomWords(words)
+        var i = 5
+        for (word in selectedWords) {
+            println("Vertaal ${word.original} van het ${word.language} naar het Nederlands!")
+            println("Nog ${i} woorden te gaan!")
+            val userInput = readLine()
+            if (userInput == word.translated) {
+                println("Correct!")
+            } else {
+                println("Fout!")
+            }
+            i--
+        }
+    }
+    fun selectRandomWords(allWords: MutableSet<Word>): MutableSet<Word> {
+        val wordSet = allWords.toMutableSet()
+        val selectedWords = mutableSetOf<Word>()
+        var i = 5
+        do {
+            var word = wordSet.random()
+            selectedWords.add(word)
+            wordSet.removeIf{it == word}
+            i--
+        } while (i >= 0)
+        return selectedWords
     }
 }

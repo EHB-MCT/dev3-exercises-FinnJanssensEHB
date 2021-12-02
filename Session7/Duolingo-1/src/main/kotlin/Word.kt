@@ -1,7 +1,5 @@
-class Word {
-    constructor(
-        original: String,
-        translated: String,
-        language: String
-    )
-}
+class Word (
+    var original: String,
+    var translated: String,
+    var language: String
+) {}
