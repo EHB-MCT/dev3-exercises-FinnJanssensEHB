@@ -1,30 +1,51 @@
-class Duolingo(val roundSize: Int, val language: String = "Engels") {
+class Duolingo {
+    var roundSize: Int = 3
+    var language: String = "engels"
+    constructor(
+        roundSize: Int,
+        language: String
+    ) {
+        this.roundSize = roundSize
+        this.language = language
+    }
+    constructor(
+        difficulty: String = "easy"
+    ) {
+        if (difficulty == "easy") {
+            this.roundSize = 3
+            this.language = "engels"
+        } else if (difficulty == "hard") {
+            this.roundSize = 6
+            this.language = "frans"
+        }
+        filterWords()
+    }
     var words = mutableSetOf<Word>(
-        Word("une cantine", "een kantine", "Frans"),
-        Word("de l'or", "goud", "Frans"),
-        Word("de l'acier", "staal", "Frans"),
-        Word("du zinc", "zink", "Frans"),
-        Word("du coton", "katoen", "Frans"),
-        Word("de la laine", "wol", "Frans"),
-        Word("de l'argile", "klei", "Frans"),
-        Word("de gaz", "gas", "Frans"),
-        Word("de la boue", "modder", "Frans"),
-        Word("du sable", "zand", "Frans"),
-        Word("a cafeteria", "een kantine", "Engels"),
-        Word("gold", "goud", "Engels"),
-        Word("steel", "staal", "Engels"),
-        Word("zinc", "zink", "Engels"),
-        Word("coton", "katoen", "Engels"),
-        Word("wool", "wol", "Engels"),
-        Word("clay", "klei", "Engels"),
-        Word("gas", "gas", "Engels"),
-        Word("mud", "modder", "Engels"),
-        Word("sand", "zand", "Engels")
+        FrenchWord("une cantine", "een kantine"),
+        FrenchWord("de l'or", "goud"),
+        FrenchWord("de l'acier", "staal"),
+        FrenchWord("du zinc", "zink"),
+        FrenchWord("du coton", "katoen"),
+        FrenchWord("de la laine", "wol"),
+        FrenchWord("de l'argile", "klei"),
+        FrenchWord("de gaz", "gas"),
+        FrenchWord("de la boue", "modder"),
+        FrenchWord("du sable", "zand"),
+        EnglishWord("a cafeteria", "een kantine"),
+        EnglishWord("gold", "goud"),
+        EnglishWord("steel", "staal"),
+        EnglishWord("zinc", "zink"),
+        EnglishWord("coton", "katoen"),
+        EnglishWord("wool", "wol"),
+        EnglishWord("clay", "klei"),
+        EnglishWord("gas", "gas"),
+        EnglishWord("mud", "modder"),
+        EnglishWord("sand", "zand")
     )
 
     var wordSet = mutableSetOf<Word>()
 
-    init {
+    fun filterWords() {
         wordSet = words.filter { it.language == language }.toMutableSet()
     }
 
