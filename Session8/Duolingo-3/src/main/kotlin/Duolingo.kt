@@ -28,21 +28,21 @@ class Duolingo {
     var words = mutableSetOf<Word>(
         FrenchWord("une cantine", "een kantine"),
         FrenchWord("de l'or", "goud"),
-        FrenchWord("de l'acier", "staal"),
+        FrenchWord("de l'acier", "staal", 2),
         FrenchWord("du zinc", "zink"),
         FrenchWord("du coton", "katoen"),
-        FrenchWord("de la laine", "wol"),
-        FrenchWord("de l'argile", "klei"),
+        FrenchWord("de la laine", "wol", 2),
+        FrenchWord("de l'argile", "klei", 2),
         FrenchWord("de gaz", "gas"),
-        FrenchWord("de la boue", "modder"),
+        FrenchWord("de la boue", "modder", 2),
         FrenchWord("du sable", "zand"),
         EnglishWord("a cafeteria", "een kantine"),
         EnglishWord("gold", "goud"),
         EnglishWord("steel", "staal"),
         EnglishWord("zinc", "zink"),
-        EnglishWord("coton", "katoen"),
+        EnglishWord("coton", "katoen", 2),
         EnglishWord("wool", "wol"),
-        EnglishWord("clay", "klei"),
+        EnglishWord("clay", "klei", 2),
         EnglishWord("gas", "gas"),
         EnglishWord("mud", "modder"),
         EnglishWord("sand", "zand")
@@ -59,7 +59,7 @@ class Duolingo {
         var i = selectedWords.size
         for (word in selectedWords) {
             Thread.sleep(400)
-            println("Vertaal ${word.original} van het ${word.language} naar het Nederlands!")
+            println("Vertaal ${word.original} van het ${word.language} naar het Nederlands! Moeilijkheid: ${word.difficulty}")
             println("Nog ${i} woorden te gaan!")
             validateResponse(word)
             i--
@@ -75,6 +75,7 @@ class Duolingo {
             println("Thinking...")
             Thread.sleep(100)
             println("Correct!")
+            word.difficulty -= 1
         } else if (userInput == "HINT") {
             println("The first letter is ${word.translated.first()}")
             validateResponse(word)
@@ -83,6 +84,8 @@ class Duolingo {
             println("Thinking...")
             Thread.sleep(100)
             println("Fout!")
+            word.difficulty += 2
+            println(word.difficulty)
         }
     }
 }

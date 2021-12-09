@@ -1,4 +1,4 @@
 fun main() {
-    val duolingo = Duolingo("eassy")
+    val duolingo = Duolingo("hard")
     duolingo.play()
 }
