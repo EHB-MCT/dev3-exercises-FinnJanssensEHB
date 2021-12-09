@@ -22,11 +22,11 @@ class WordDeck {
         EnglishWord("sand", "zand")
     )
     var filteredWords: MutableSet<Word> = mutableSetOf()
-    fun filterByLanguage(language: String) {
-        filteredWords = wordSet.filter { it.language == language}.toMutableSet()
+    fun filterByLanguage(words: MutableSet<Word>,language: String) {
+        filteredWords = words.filter { it.language == language}.toMutableSet()
     }
-    fun filterByDifficulty(difficulty: Int) {
-        filteredWords = wordSet.filter { it.difficulty == difficulty}.toMutableSet()
+    fun filterByDifficulty(words: MutableSet<Word>, difficulty: Int) {
+        filteredWords = words.filter { it.difficulty == difficulty}.toMutableSet()
     }
     fun reset() {
         filteredWords = wordSet

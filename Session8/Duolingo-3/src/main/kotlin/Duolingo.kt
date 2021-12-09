@@ -1,33 +1,24 @@
 import java.lang.IllegalArgumentException
 import kotlin.concurrent.thread
 
-class Duolingo {
-    var roundSize: Int = 3
-    var language: String = "engels"
-    constructor(
-        roundSize: Int,
-        language: String
-    ) {
-        this.roundSize = roundSize
-        this.language = language
-    }
-    constructor(
-        difficulty: String = "easy"
-    ) {
+class Duolingo(var difficulty: String = "easy", var language: String = "engels") {
+    var roundSize: Int
+    var words: WordDeck = WordDeck()
+    init {
+        words.filterByLanguage(words.wordSet, language)
         if (difficulty == "easy") {
-            this.roundSize = 3
-            this.language = "engels"
+            roundSize = 3
+            words.filterByDifficulty(words.filteredWords,1)
         } else if (difficulty == "hard") {
-            this.roundSize = 6
-            this.language = "frans"
+            roundSize = 6
+            words.filterByDifficulty(words.filteredWords,2)
+
         } else {
             throw IllegalArgumentException("Only easy or hard can be set as difficulty!")
         }
     }
 
     fun play() {
-        var words: WordDeck = WordDeck()
-        words.filterByLanguage(language)
         val selectedWords = selectRandomWords(words.filteredWords)
         var i = selectedWords.size
         for (word in selectedWords) {
