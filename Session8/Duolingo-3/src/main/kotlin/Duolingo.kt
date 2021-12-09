@@ -23,39 +23,12 @@ class Duolingo {
         } else {
             throw IllegalArgumentException("Only easy or hard can be set as difficulty!")
         }
-        filterWords()
-    }
-    var words = mutableSetOf<Word>(
-        FrenchWord("une cantine", "een kantine"),
-        FrenchWord("de l'or", "goud"),
-        FrenchWord("de l'acier", "staal", 2),
-        FrenchWord("du zinc", "zink"),
-        FrenchWord("du coton", "katoen"),
-        FrenchWord("de la laine", "wol", 2),
-        FrenchWord("de l'argile", "klei", 2),
-        FrenchWord("de gaz", "gas"),
-        FrenchWord("de la boue", "modder", 2),
-        FrenchWord("du sable", "zand"),
-        EnglishWord("a cafeteria", "een kantine"),
-        EnglishWord("gold", "goud"),
-        EnglishWord("steel", "staal"),
-        EnglishWord("zinc", "zink"),
-        EnglishWord("coton", "katoen", 2),
-        EnglishWord("wool", "wol"),
-        EnglishWord("clay", "klei", 2),
-        EnglishWord("gas", "gas"),
-        EnglishWord("mud", "modder"),
-        EnglishWord("sand", "zand")
-    )
-
-    var wordSet = mutableSetOf<Word>()
-
-    fun filterWords() {
-        wordSet = words.filter { it.language == language }.toMutableSet()
     }
 
     fun play() {
-        val selectedWords = selectRandomWords(wordSet)
+        var words: WordDeck = WordDeck()
+        words.filterByLanguage(language)
+        val selectedWords = selectRandomWords(words.filteredWords)
         var i = selectedWords.size
         for (word in selectedWords) {
             Thread.sleep(400)
